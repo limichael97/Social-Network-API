@@ -1,5 +1,10 @@
 const {Schema, model} = require('mongoose');
 
+var validateEmail = function(email) {
+    var symbols = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return symbols.test(email)
+};
+
 const UserSchema = new Schema(
     {
         username: {
@@ -13,10 +18,9 @@ const UserSchema = new Schema(
             type: String,
             required: true,
             unique: true,
-            validate: {
-                validator: () => Promise.resolve(false),
-                message: 'Email validation failed'
-            }
+            validate: [validateEmail, 'Please fill a valid email address'],
+            match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
+    
         },
         thoughts: [
             {
@@ -31,6 +35,14 @@ const UserSchema = new Schema(
             }
         ]
 
+    },
+    {
+        toJSON: {
+            virtuals: true,
+            // getters: true
+
+        },
+        id: false
     }
 )
 
@@ -40,12 +52,5 @@ UserSchema.virtual('friendCount').get(function() {
 
 
 const User = model('User', UserSchema);
-// const user = new User();
-
-user.email = 'test@test.co';
-user.validate().catch(error => {
-  assert.ok(error);
-  assert.equal(error.errors['email'].message, 'Email validation failed');
-});
 
 module.exports= User
