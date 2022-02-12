@@ -1,4 +1,6 @@
 const {Schema, model} = require('mongoose');
+const dateFormat = require('../utils/dateFormat');
+
 
 var validateEmail = function(email) {
     var symbols = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -39,7 +41,7 @@ const UserSchema = new Schema(
     {
         toJSON: {
             virtuals: true,
-            // getters: true
+            getters: true
 
         },
         id: false
