@@ -32,6 +32,9 @@ If MongoDB is not installed, install MongoDB through [MongoDB Website](https://d
 4. Run `npm start` to start the server 
 5. Use your browser or an app like [Insomnia](https://insomnia.rest/) to test the REST API.
 
+Demonstration of User Routes: https://www.youtube.com/watch?v=-E4xyD1WuxI 
+Demonstration of Thought Routes: https://www.youtube.com/watch?v=7UGY4nP1hwE
+
 # Endpoints
 **User**
 - Get all users:        `GET /api/users`
